@@ -31,6 +31,9 @@ const Home = ({ navigation }) => {
         navigation.navigate('Patients')
     }
 
+    const demo = () => {
+        navigation.navigate('demo')
+    }
 
     return (
         <SafeAreaView style={styles.Container}>
@@ -165,7 +168,7 @@ const Home = ({ navigation }) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={demo}>
                     <View style={styles.blue}>
                         <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
                             <Image style={styles.img2} source={require('../assets/task.png')} />
