@@ -8,6 +8,7 @@ import Home from './componets/src/Home'
 import Patients from './componets/src/latest/Patients'
 import Task from './componets/src/latest/Task'
 import Reports from './componets/src/latest/Reports'
+import Test_oxio from './componets/src/Test_oxio'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -49,6 +50,11 @@ export default function App() {
 
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen
+              name="demo"
+              component={demo}
+              options={{ headerShown: false }}
+            />
 
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen
@@ -77,16 +83,22 @@ export default function App() {
               options={{ headerShown: false }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="demo"
               component={demo}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen
               name="Device"
               component={Device}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="Test_oxio"
+              component={Test_oxio}
+              options={{ headerShown: false }}
+            />
+
 
           </Stack.Navigator>
         </NavigationContainer>
