@@ -45,52 +45,7 @@ const App = () => {
         }
     }
 
-    // const connectToOximeter = () => {
-    //     // const { devices } = this.state;
-    //     var devices = []
-    //     console.log(devices, "devices")
 
-
-    //     if (devices) {
-    //         const oximeter = devices.find(device => device.name === 'oximeter');
-
-    //         if (oximeter) {
-    //             BleManager.connect(oximeter.id)
-    //                 .then(() => {
-    //                     console.log(`Connected to ${oximeter.name}`);
-
-    //                     // this.setState({ connected: true, oximeter });
-    //                     subscribeToValues(oximeter.id);
-    //                 })
-    //                 .catch(error => {
-    //                     console.error(`Failed to connect to ${oximeter.name}:`, error);
-    //                 });
-    //         }
-    //     }
-    // };
-
-    // const subscribeToValues = (deviceId) => {
-    //     BleManager.startNotification(deviceId, 'cdeacb80-5235-4c07-8846-93a37ee6b86d', 'cdeacb81-5235-4c07-8846-93a37ee6b86d')
-    //         .then(() => {
-    //             console.log(`Subscribed to values of ${deviceId}`);
-    //         })
-    //         .catch(error => {
-    //             console.error(`Failed to subscribe to values of ${deviceId}:`, error);
-    //         });
-
-    //     BleManager.read(deviceId, 'cdeacb80-5235-4c07-8846-93a37ee6b86d', 'cdeacb81-5235-4c07-8846-93a37ee6b86d')
-    //         .then(value => {
-    //             const pulse = value[0];
-    //             const spo2 = value[1];
-
-    //             console.log(spo2, pulse, "sp0222222222222222")
-
-    //             // this.setState({ pulse, spo2 });
-    //         })
-    //         .catch(error => {
-    //             console.error(`Failed to read values from ${deviceId}:`, error);
-    //         });
-    // };
     const handleStopScan = () => {
         console.log('Scan is stopped');
         setIsScanning(false);
@@ -157,19 +112,6 @@ const App = () => {
 
             if (peripheral.name === 'My Oximeter') {
 
-                // const peripheralInfo = await BleManager.retrieveServices(deviceId);
-                // const services = peripheralInfo.services;
-                // for (const service of services) {
-                //     const characteristics = service.characteristics;
-                //     for (const characteristic of characteristics) {
-                //         console.log(`Characteristic: ${characteristic.uuid}`);
-                //         if (characteristic.uuid === PULSE_CHARACTERISTIC_UUID) {
-                //             console.log('Found pulse characteristic');
-                //             // Do something with the pulse characteristic...
-                //         }
-                //     }
-                // }
-
                 console.log("device accepted")
                 const oximeter = peripheral;
                 var serviceUUID = "cdeacb80-5235-4c07-8846-93a37ee6b86d"
@@ -227,187 +169,6 @@ const App = () => {
 
     }
 
-    // const testPeripheral = async (peripheral) => {
-    //     if (peripheral) {
-    //         if (peripheral.connected) {
-    //             BleManager.disconnect(peripheral.id);
-    //         } else {
-    //             BleManager.connect(peripheral.id).then(() => {
-    //                 let p = peripherals.get(peripheral.id);
-    //                 if (p) {
-    //                     p.connected = true;
-    //                     peripherals.set(peripheral.id, p);
-    //                     setList(Array.from(peripherals.values()));
-    //                 }
-    //                 // console.log('Connected to ' + peripheral.id);
-
-
-    //                 setTimeout(async () => {
-
-    //                     /* Test read current RSSI value */
-    //                     BleManager.retrieveServices(peripheral.id).then((peripheralData) => {
-    //                         console.log('Retrieved peripheral services', peripheralData);
-
-    //                         console.log("data1", peripheralData)
-    //                         // console.log(peripheralData.advertising.manufacturerData.bytes)
-    //                         // console.log(peripheralData.characteristics[0])
-    //                         // console.log()
-    //                         // console.log()
-    //                         // console.log()
-
-    //                         const pulseOximeterCharacteristic = peripheralData.find(service => {
-    //                             return service.uuid === 'cdeacb80-5235-4c07-8846-93a37ee6b86d';
-    //                         });
-
-    //                         // Read the pulse oximeter data
-    //                         const data = BleManager.read(peripheral, pulseOximeterCharacteristic.service, pulseOximeterCharacteristic.characteristic);
-    //                         console.log("dara@@@@@@", data)
-
-
-    //                         // var st = '0x';
-    //                         // peripheralData.characteristics.forEach(function (byte) {
-    //                         //     var data = st += ('0' + (byte & 0xFF).toString(16)).slice(-2);
-    //                         //     console.log(data, "s data")
-
-    //                         // });
-    //                         // var s = '0x';
-    //                         // peripheralData.characteristics.forEach(function (byte) {
-    //                         //     return s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
-
-    //                         // });
-    //                         // console.log(s, "s values")
-
-    //                         // // let s12 = 0xFFFFFFFF + s + 1;
-    //                         // let s12 = (s + 0x10000).toString(16).substr(-4).toUpperCase();
-    //                         // console.log(s12, "s12")
-
-
-    //                         // let hexa = s.toString(16).toUpperCase();
-    //                         // console.log(hexa, "hex")
-
-    //                         // // console.log(decimalToHexString(27));
-    //                         // // console.log(decimalToHexString(48.6));
-
-
-    //                         // console.log(datahex, "datahexxxxxxxxxxxxxx")
-    //                         // // dataStr = bytesToHexFun2(peripheralData);
-    //                         // let dataStr1 = datahex.toUpperCase();
-
-    //                         // console.log(dataStr1, datahex, "datastr")
-
-    //                         // if (datahex.startsWith("cdeacb80-5235-4c07-8846-93a37ee6b86d")) {
-    //                         //     var oxy = data[6] & 0xFF;
-    //                         //     var bpm = data[7] & 0xFF;
-    //                         //     var pp = data[8] & 0xFF;
-    //                         //     var piv = pp * 10 / 100;
-
-    //                         //     console.log(oxy, bpm, pp, piv, "data############")
-    //                         //     //                    if (mStartTime != 0) {
-    //                         //     //                        if (oxy > 0 && oxy != 127) {
-    //                         //     //                            oxylist.add(oxy);
-    //                         //     //                        }
-    //                         //     //                        if (bpm > 0 && bpm != 255) {
-    //                         //     //                            bpmlist.add(bpm);
-    //                         //     //                        }
-    //                         //     //                        if (piv > 0) {
-    //                         //     //                            pilist.add(piv);
-    //                         //     //                        }
-    //                         //     //                    }
-
-    //                         //     if (oxy > 0 && oxy != 127) {
-    //                         //         setOxyMaxMin(oxy);
-    //                         //         let data = spo2Text.setText(oxy + "");
-    //                         //         console.log(data)
-    //                         //     }
-    //                         //     if (bpm > 0 && bpm != 255) {
-    //                         //         setBpmMaxMin(bpm);
-    //                         //         let datbpm = bpmText.setText((bpm + ""));
-    //                         //         console.log(datbpm)
-    //                         //     }
-    //                         //     b = new BigDecimal(piv);
-    //                         //     f1 = b.setScale(1, RoundingMode.HALF_UP).doubleValue();
-    //                         //     if (f1 > 0) {
-    //                         //         setPiMaxMin(f1);
-    //                         //         piText.setText(f1 + "");
-    //                         //     }
-    //                         // }
-
-
-
-    //                         BleManager.readRSSI(peripheral.id).then((rssi) => {
-    //                             console.log('Retrieved actual RSSI value', rssi);
-    //                             let p = peripherals.get(peripheral.id);
-    //                             if (p) {
-    //                                 p.rssi = rssi;
-    //                                 peripherals.set(peripheral.id, p);
-    //                                 setList(Array.from(peripherals.values()));
-    //                             }
-    //                         });
-    //                     });
-
-    //                     BleManager.retrieveServices(peripheral.id).then((peripheralInfo) => {
-    //                         console.log("peripheralInfo", peripheralInfo);
-    //                         const HEART_RATE_UUID = '0000180d-0000-1000-8000-00805f9b34fb';
-    //                         const HEART_RATE_CHARACTERISTIC = '00002a37-0000-1000-8000-00805f9b34fb';
-    //                         startStreamingData = async (
-    //                             emitter: (arg0: { payload: number | BleError }) => void,
-    //                         ) => {
-    //                             await this.device?.discoverAllServicesAndCharacteristics();
-    //                             this.device?.monitorCharacteristicForService(
-    //                                 HEART_RATE_UUID,
-    //                                 HEART_RATE_CHARACTERISTIC,
-    //                                 (error, characteristic) =>
-    //                                     this.onHeartRateUpdate(error, characteristic, emitter),
-    //                             );
-    //                         };
-    //                     })
-
-
-    //                     // Test using bleno's pizza example
-    //                     // https://github.com/sandeepmistry/bleno/tree/master/examples/pizza
-    //                     /*
-    //                     BleManager.retrieveServices(peripheralData).then((peripheralInfo) => {
-    //                       console.log(peripheralInfo);
-    //                       var service = '13333333-3333-3333-3333-333333333337';
-    //                       var bakeCharacteristic = '13333333-3333-3333-3333-333333330003';
-    //                       var crustCharacteristic = '13333333-3333-3333-3333-333333330001';
-
-    //                       setTimeout(() => {
-    //                         BleManager.startNotification(peripheral.id, service, bakeCharacteristic).then(() => {
-    //                           console.log('Started notification on ' + peripheral.id);
-    //                           setTimeout(() => {
-    //                             BleManager.write(peripheral.id, service, crustCharacteristic, [0]).then(() => {
-    //                               console.log('Writed NORMAL crust');
-    //                               BleManager.write(peripheral.id, service, bakeCharacteristic, [1,95]).then(() => {
-    //                                 console.log('Writed 351 temperature, the pizza should be BAKED');
-
-    //                                 //var PizzaBakeResult = {
-    //                                 //  HALF_BAKED: 0,
-    //                                 //  BAKED:      1,
-    //                                 //  CRISPY:     2,
-    //                                 //  BURNT:      3,
-    //                                 //  ON_FIRE:    4
-    //                                 //};
-    //                               });
-    //                             });
-
-    //                           }, 500);
-    //                         }).catch((error) => {
-    //                           console.log('Notification error', error);
-    //                         });
-    //                       }, 200);
-    //                     });*/
-
-
-
-    //                 }, 900);
-    //             }).catch((error) => {
-    //                 console.log('Connection error', error);
-    //             });
-    //         }
-    //     }
-
-    // }
 
     useEffect(() => {
         BleManager.start({ showAlert: false });
@@ -432,35 +193,6 @@ const App = () => {
                 }
             });
         }
-        // const bleManager = new BleManager();
-        // bleManager.onStateChange(state => {
-        //     if (state !== "PoweredOn") return
-        //     bleManager.startDeviceScan(
-        //         ["053d03fd-00b0-4331-a337-f49f59777484"], // change this value to null to and all peripherals are called
-        //         null,
-        //         (error, scannedDevice) => {
-        //             if (error) console.error(error);
-        //             bleManager.connectToDevice(scannedDevice.id).then(connectedDevice => {
-        //                 return connectedDevice.discoverAllServicesAndCharacteristics()
-        //             }).then(connectedDevice2 => {
-        //                 return connectedDevice2.services()
-        //             }).then(services => {
-        //                 console.log(services.map(x => x.uuid));
-        //             })
-        //         }
-        //     )
-        // })
-
-        // return (() => {
-        //     console.log('unmount');
-        //     bleManagerEmitter.removeListener('BleManagerDiscoverPeripheral', handleDiscoverPeripheral);
-        //     bleManagerEmitter.removeListener('BleManagerStopScan', handleStopScan);
-        //     bleManagerEmitter.removeListener('BleManagerDisconnectPeripheral', handleDisconnectedPeripheral);
-        //     bleManagerEmitter.removeListener('BleManagerDidUpdateValueForCharacteristic', handleUpdateValueForCharacteristic);
-        // })
-
-
-
 
 
     }, []);
@@ -469,50 +201,7 @@ const App = () => {
     useEffect(() => {
 
     })
-    // async function startScanning() {
-    //     console.log('Scanning for devices...');
 
-    //     try {
-    //         await bleManager.startDeviceScan(null, null, (error, device) => {
-    //             if (error) {
-    //                 console.log('Error while scanning: ', error);
-    //                 return;
-    //             }
-
-    //             if (device.name === 'YourOximeterName') {
-    //                 console.log('Found device: ', device.name);
-    //                 bleManager.stopDeviceScan();
-    //                 connectToDevice(device);
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.log('Error while scanning: ', error);
-    //     }
-    // }
-
-    // async function connectToDevice(device) {
-    //     console.log('Connecting to device...');
-
-    //     try {
-    //         const connectedDevice = await bleManager.connectToDevice(device.id);
-    //         console.log('Connected to device: ', connectedDevice.name);
-    //         retrieveData(connectedDevice);
-    //     } catch (error) {
-    //         console.log('Error while connecting: ', error);
-    //     }
-    // }
-
-    // async function retrieveData(device) {
-    //     console.log('Retrieving data...');
-
-    //     try {
-    //         await device.discoverAllServicesAndCharacteristics();
-    //         const data = await device.readCharacteristicForService('cdeacb80-5235-4c07-8846-93a37ee6b86d', 'cdeacb80-5235-4c07-8846-93a37ee6b86d');
-    //         console.log('Data: ', data);
-    //     } catch (error) {
-    //         console.log('Error while retrieving data: ', error);
-    //     }
-    // }
 
     const renderItem = (item) => {
         const color = item.connected ? 'green' : '#fff';
@@ -617,7 +306,6 @@ const styles = StyleSheet.create({
 export default App;
 
 
-// import React, { useState, useEffect } from 'react';
 // import {
 //     SafeAreaView,
 //     StyleSheet,

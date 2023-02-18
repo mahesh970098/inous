@@ -77,7 +77,7 @@ const Patients = ({ navigation }) => {
                     start={{ x: 1.0, y: 0.25 }}
                     end={{ x: 0.5, y: 2.0 }}
                     locations={[0, 0.5, 0.6]}
-                    colors={["#e6ecff", "#e6ecff", "#e6ecff"]}
+                    colors={["#ffcccc", "#ffcccc", "#ffcccc"]}
                 >
                     <View
                         style={{

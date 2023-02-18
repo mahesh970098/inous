@@ -21,6 +21,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import Bletest from './componets/src/Bletest'
 import demo from './componets/src/demo'
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
@@ -42,19 +43,17 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
 
       {isLoading12 ? (<>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#EBF3FC' }}>
-          <Image style={{ width: wp('90%'), height: hp('30%') }} source={require("./componets/assets/splash_logo.png")} />
-          <LottieView style={{ width: wp('90%'), height: hp('50%'), justifyContent: 'center' }} source={require('./componets/assets/json/100714-heart-rate.json')} autoPlay loop />
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#ffcccc' }}>
+
+          <LottieView style={{ width: wp('50%'), height: hp('20%'), justifyContent: 'center' }} source={require('./componets/assets/json/129223-heart-rate01.json')} autoPlay loop />
+          <Image style={{ width: wp('70%'), height: hp('20%') }} source={require("./componets/assets/splash_logo.png")} />
         </View>
       </>) : (<>
 
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
-              name="demo"
-              component={demo}
-              options={{ headerShown: false }}
-            />
+
+
 
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen
@@ -83,16 +82,29 @@ export default function App() {
               options={{ headerShown: false }}
             />
 
-            {/* <Stack.Screen
+            <Stack.Screen
               name="demo"
               component={demo}
               options={{ headerShown: false }}
-            /> */}
+            />
             <Stack.Screen
               name="Device"
               component={Device}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="Bletest"
+              component={Bletest}
+              options={{ headerShown: false }}
+            />
+
+
+            {/* <Stack.Screen
+              name="demo"
+              component={demo}
+              options={{ headerShown: false }}
+            /> */}
+
             <Stack.Screen
               name="Test_oxio"
               component={Test_oxio}

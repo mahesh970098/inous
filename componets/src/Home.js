@@ -24,7 +24,7 @@ var width = Dimensions.get("window").width;
 const Home = ({ navigation }) => {
     var height = Dimensions.get("window").height;
     var width = Dimensions.get("window").width;
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     const patients = () => {
@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
                     start={{ x: 1.0, y: 0.25 }}
                     end={{ x: 0.5, y: 2.0 }}
                     locations={[0, 0.5, 0.6]}
-                    colors={["#e6ecff", "#e6ecff", "#e6ecff"]}
+                    colors={["#ffcccc", "#ffcccc", "#ffcccc"]}
                 >
                     <View
                         style={{
@@ -89,8 +89,8 @@ const Home = ({ navigation }) => {
                         </View>
                         <View style={{ justifyContent: 'center' }}>
                             <Switch
-                                trackColor={{ false: '#767577', true: '#81b0ff' }}
-                                thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                                trackColor={{ false: '#767577', true: '#00cc00' }}
+                                thumbColor={isEnabled ? '#008000' : '#ff3300'}
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={toggleSwitch}
                                 value={isEnabled}
@@ -123,7 +123,7 @@ const Home = ({ navigation }) => {
             <View style={{ alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('8%') }}>
                 <View>
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image style={styles.img2} source={require('../assets/assigned.png')} />
+                        <Image style={styles.img2} source={require('../assets/user-assign.png')} />
                         <Text style={{ color: "#000", fontSize: 15 }}>Assigned</Text>
                         <Text style={{ color: "#000", fontSize: 15 }}>00</Text>
                     </View>

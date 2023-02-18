@@ -8,17 +8,34 @@ import {
     Button,
     TouchableOpacity,
 } from "react-native";
+import Toast from "react-native-toast-message";
+
+
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const showToast = (type, message, position) => {
+        Toast.show({
+            type: type,
+            text1: message,
+            position: position,
+        });
+    };
 
     const login = () => {
         if ((email.length > 0) && (password.length > 0)) {
+
+            if ((email == "admin") && (password == "admin")) {
+                navigation.navigate('Navbar')
+                console.log("Navbar")
+            } else {
+                showToast("info", "Invalid Credential", "top");
+            }
             // navigation.navgate("Home");
-            navigation.navigate('Navbar')
-            console.log("Navbar")
+
         } else {
             console.log("false")
+            showToast("info", "Please Enter details", "top");
         }
     }
     return (
