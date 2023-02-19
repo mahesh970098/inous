@@ -31,7 +31,7 @@ const Login = ({ navigation }) => {
             } else {
                 showToast("info", "Invalid Credential", "top");
             }
-            // navigation.navgate("Home");
+            // navigation.navigate('Navbar')
 
         } else {
             console.log("false")

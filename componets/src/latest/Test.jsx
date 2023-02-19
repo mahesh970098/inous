@@ -324,6 +324,13 @@ export default function Test({ navigation }) {
             });
         }
     };
+
+    const savedata = () => {
+        navigation.navigate('Testdata', {
+            oxdata: spo,
+            oxdatabp: sdp
+        })
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -382,27 +389,66 @@ export default function Test({ navigation }) {
             </View>
 
             <View style={{ alignItems: 'center' }}>
-                <TouchableOpacity onPress={spodata}>
-                    <View style={{ marginTop: hp('10%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View style={{ justifyContent: 'center', }}>
-                                <Text style={{ color: '#000', fontSize: 20 }}>sp02</Text>
-                            </View>
-                            <View>
-                                <LottieView
-                                    style={{
-                                        width: width * 0.15,
-                                        height: Dimensions.get("window").width * 0.18,
-                                        justifyContent: 'center',
-                                    }}
-                                    source={require("../../assets/lf30_editor_checklist.json")} loop={true} autoPlay={true}
-                                />
 
+                {spo ? (<>
+
+                    <TouchableOpacity onPress={spodata}>
+                        <View style={{ marginTop: hp('10%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ justifyContent: 'center', }}>
+                                    <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Oximeter</Text>
+                                </View>
+                                <View>
+                                    <LottieView
+                                        style={{
+                                            width: width * 0.15,
+                                            height: Dimensions.get("window").width * 0.18,
+                                            justifyContent: 'center',
+                                        }}
+                                        source={require("../../assets/lf30_editor_checklist.json")} loop={true} autoPlay={true}
+                                    />
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('2%') }}>
+                                <Text style={styles.header}>SPO2</Text>
+                                <Text style={styles.data}>{spo}%</Text>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('2%'), marginBottom: 20 }}>
+                                <Text style={styles.header}>BP</Text>
+                                <Text style={styles.data}>{sdp}</Text>
 
                             </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+
+
+
+                </>) : (<>
+                    <TouchableOpacity onPress={spodata}>
+                        <View style={{ marginTop: hp('10%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ justifyContent: 'center', }}>
+                                    <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Oximeter</Text>
+                                </View>
+                                <View>
+                                    <LottieView
+                                        style={{
+                                            width: width * 0.15,
+                                            height: Dimensions.get("window").width * 0.18,
+                                            justifyContent: 'center',
+                                        }}
+                                        source={require("../../assets/78930-pulse-oximeter-power-on.json")} loop={true} autoPlay={true}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+
+                </>)}
+
+
             </View>
 
 
@@ -411,7 +457,7 @@ export default function Test({ navigation }) {
                     <View style={{ marginTop: hp('3%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ justifyContent: 'center', }}>
-                                <Text style={{ color: '#000', fontSize: 20 }}>Temparature</Text>
+                                <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Thermometer</Text>
                             </View>
                             <View>
                                 <LottieView
@@ -420,7 +466,7 @@ export default function Test({ navigation }) {
                                         height: Dimensions.get("window").width * 0.18,
                                         justifyContent: 'center',
                                     }}
-                                    source={require("../../assets/lf30_editor_checklist.json")} loop={true} autoPlay={true}
+                                    source={require("../../assets/json/90289-thermometer.json")} loop={true} autoPlay={true}
                                 />
 
 
@@ -431,31 +477,14 @@ export default function Test({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ alignItems: 'center' }}>
-                <TouchableOpacity onPress={test}>
-                    <View style={{ marginTop: hp('2%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View style={{ justifyContent: 'center', }}>
-                                <Text style={{ color: '#000', fontSize: 20 }}>Weight</Text>
-                            </View>
-                            <View>
-                                <LottieView
-                                    style={{
-                                        width: width * 0.15,
-                                        height: Dimensions.get("window").width * 0.18,
-                                        justifyContent: 'center',
-                                    }}
-                                    source={require("../../assets/lf30_editor_checklist.json")} loop={true} autoPlay={true}
-                                />
-
-
-                            </View>
-                        </View>
+            {/* 
+            <View style={{ alignItems: 'center', marginTop: 20 }}>
+                <TouchableOpacity onPress={savedata}>
+                    <View style={styles.btn21}>
+                        <Text style={{ color: '#fff' }}>Save</Text>
                     </View>
                 </TouchableOpacity>
-
-            </View>
-
+            </View> */}
 
 
 
@@ -530,7 +559,7 @@ export default function Test({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={closeqr}>
                                         <View style={styles.btn1}>
                                             <Text style={{ color: '#fff' }}>
                                                 Save
@@ -756,6 +785,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#002E56",
+        // marginTop: hp("2%"),
+    },
+    btn21: {
+        width: Dimensions.get("window").width * 0.6,
+        height: Dimensions.get("window").width * 0.1,
+
+        borderRadius: 5,
+        color: "#ffffff",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#ff0000",
         // marginTop: hp("2%"),
     },
 

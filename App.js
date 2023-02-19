@@ -23,6 +23,7 @@ import {
 } from "react-native-responsive-screen";
 import Bletest from './componets/src/Bletest'
 import demo from './componets/src/demo'
+import Test_data from './componets/src/latest/Test_data'
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
 
@@ -108,6 +109,12 @@ export default function App() {
             <Stack.Screen
               name="Test_oxio"
               component={Test_oxio}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="Testdata"
+              component={Test_data}
               options={{ headerShown: false }}
             />
 
