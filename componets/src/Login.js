@@ -25,13 +25,13 @@ const Login = ({ navigation }) => {
     const login = () => {
         if ((email.length > 0) && (password.length > 0)) {
 
-            if ((email == "admin") && (password == "admin")) {
-                navigation.navigate('Navbar')
-                console.log("Navbar")
-            } else {
-                showToast("info", "Invalid Credential", "top");
-            }
-            // navigation.navigate('Navbar')
+            // if ((email == "admin") && (password == "admin")) {
+            //     navigation.navigate('Navbar')
+            //     console.log("Navbar")
+            // } else {
+            //     showToast("info", "Invalid Credential", "top");
+            // }
+            navigation.navigate('Navbar')
 
         } else {
             console.log("false")

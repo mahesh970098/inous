@@ -24,6 +24,7 @@ import {
 import Bletest from './componets/src/Bletest'
 import demo from './componets/src/demo'
 import Test_data from './componets/src/latest/Test_data'
+import Testthe from './componets/src/lowenergydevice/Test_the'
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
 
@@ -53,9 +54,17 @@ export default function App() {
 
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen
+              name="Testthe"
+              component={Testthe}
+              options={{ headerShown: false }}
+            />
 
-
-
+            <Stack.Screen
+              name="demo"
+              component={demo}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen
               name="Navbar"
@@ -83,11 +92,11 @@ export default function App() {
               options={{ headerShown: false }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="demo"
               component={demo}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen
               name="Device"
               component={Device}
@@ -117,6 +126,8 @@ export default function App() {
               component={Test_data}
               options={{ headerShown: false }}
             />
+
+
 
 
           </Stack.Navigator>

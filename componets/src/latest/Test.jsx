@@ -56,7 +56,7 @@ export default function Test({ navigation }) {
     var width = Dimensions.get("window").width;
 
     const spodata = () => {
-        setBoxVisible(true)
+        setinstruction(true)
     }
     const spodata1 = () => {
         navigation.navigate('Device')
@@ -103,24 +103,6 @@ export default function Test({ navigation }) {
         setIsScanning(false);
         console.log('Scan is stopped');
         setBoxVisible1(false)
-        // try {
-        //     Alert.alert(
-        //         "Inuous",
-        //         "Uh oh. 😕\nSomething went wrong, please Try Againl. \nClick OK",
-        //         [
-
-
-        //             {
-        //                 text: "OK",
-
-        //             }
-        //         ],
-        //         { cancelable: true }
-        //     );
-
-        // } catch {
-
-        // }
     };
 
     const handleDisconnectedPeripheral = data => {
@@ -153,7 +135,38 @@ export default function Test({ navigation }) {
             console.log("sppo222222222222222@!--------", data.value[2])
             setsbp(data.value[1])
             console.log("bp--------", sdp)
+            setTimeout(() => {
+                BleManager.removeBond(data.peripheral)
+                    .then(() => {
+                        console.log("removeBond success");
+                    })
+                    .catch(() => {
+                        console.log("fail to remove the bond");
+                    });
+                BleManager.disconnect(data.peripheral)
+                    .then(() => {
+                        // Success code
+                        console.log("Disconnected");
+                    })
+                    .catch((error) => {
+                        // Failure code
+                        console.log(error);
+                    });
+                setTimeout(() => {
+                    BleManager.getBondedPeripherals()
+                        .then((peripherals) => {
+                            if (peripherals.some((p) => p.id === device.id)) {
+                                console.log('Bond was not removed');
+                            } else {
+                                console.log('Bond was successfully removed');
+                            }
+                        })
+                        .catch((error) => {
+                            console.log('Error checking bond state:', error);
+                        });
+                }, 5000);
 
+            }, 4000);
 
         }
         BleManager.read(
@@ -490,7 +503,7 @@ export default function Test({ navigation }) {
 
 
             <View>
-                <Modal
+                {/* <Modal
                     animationType="fade"
                     transparent
                     visible={BoxVisible}
@@ -500,18 +513,12 @@ export default function Test({ navigation }) {
                     onRequestClose={() => { setBoxVisible(false) }}
                     close={() => { setBoxVisible(false) }}
 
-                // onBackdropPress={closeqr}
-                // onRequestClose={() => { console.log("Modal has been closed.") }}
 
 
                 >
                     <View style={styles.viewWrapper12}>
                         <View style={styles.modalView12}>
-                            {/* <View style={{ alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#000', marginBottom: hp('1%'), padding: 10 }}>
-
-                                <Text style={{ color: '#000', textAlign: 'center', justifyContent: 'center' }}>Covid 19 Ag  Test </Text>
-                      
-                            </View> */}
+           
                             <View style={{ borderBottomWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: hp("1%") }}>
                                 <Text></Text>
                                 <Text style={{ color: '#000' }}>Covid 19 Ag Test </Text>
@@ -574,7 +581,7 @@ export default function Test({ navigation }) {
 
                         </View>
                     </View>
-                </Modal>
+                </Modal> */}
                 {/* //////////////////////////////////////////////////////////instructions */}
 
                 <Modal
