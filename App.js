@@ -54,17 +54,11 @@ export default function App() {
 
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
-              name="Testthe"
-              component={Testthe}
-              options={{ headerShown: false }}
-            />
-
-            <Stack.Screen
+            {/* <Stack.Screen
               name="demo"
               component={demo}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen
               name="Navbar"
@@ -109,12 +103,6 @@ export default function App() {
             />
 
 
-            {/* <Stack.Screen
-              name="demo"
-              component={demo}
-              options={{ headerShown: false }}
-            /> */}
-
             <Stack.Screen
               name="Test_oxio"
               component={Test_oxio}
@@ -124,6 +112,12 @@ export default function App() {
             <Stack.Screen
               name="Testdata"
               component={Test_data}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="Testthe"
+              component={Testthe}
               options={{ headerShown: false }}
             />
 

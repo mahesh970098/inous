@@ -18,6 +18,7 @@ import {
     Modal,
     Alert
 } from 'react-native';
+import { bytesToString } from 'convert-string';
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import LinearGradient from "react-native-linear-gradient";
@@ -28,10 +29,6 @@ import {
 } from "react-native-responsive-screen";
 var height = Dimensions.get("window").height;
 var width = Dimensions.get("window").width;
-
-import Test_thermometer from './Test_thermometer'
-import Test_bp from './Test_bp'
-import Test_weight from './Test_weight'
 // import BleManager from '../BleManger';
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -62,9 +59,7 @@ export default function Test({ navigation }) {
     const spodata = () => {
         setinstruction(true)
     }
-    const spodata1 = () => {
-        navigation.navigate('Device')
-    }
+
     const closeqr = () => {
         setBoxVisible(false)
     }
@@ -126,12 +121,19 @@ export default function Test({ navigation }) {
             data.characteristic,
             data.value,
         );
-
+        console.log(data.value, "datavalue###################################################s")
+        const data12 = bytesToString(data.value);
+        console.log(`Recieved-------!!!! ${data12} for characteristic ${data.characteristic}`);
         const buffer01 = new ArrayBuffer(16);
         const bytes = new Uint8Array(data.value);
         const pulse = new DataView(bytes.buffer).getUint16(buffer01, 3, true)
         // const battery = new Uint8Array(bytes.buffer)[14];
         console.log('Pulse Rate--------------:' + pulse);
+
+        // KLog.e(DataTool.byte2HexStr(data));
+        //     float value = Tools.getTemperature(data);  
+
+        // TRY THIS
 
 
         if (data.value.length == 4) {
@@ -235,22 +237,37 @@ export default function Test({ navigation }) {
 
     const handleDiscoverPeripheral = peripheral => {
         console.log('Got ble peripheral', peripheral);
-        if (peripheral.name == "My Oximeter") {
-            console.log("-----------------------oxometer is identified---")
+        console.log("---------name", peripheral.name)
+        if (peripheral.id == "18:93:D7:0F:C2:F4") {
+            console.log("#############oxometer is identified---")
 
 
             // this.setState({ device: device });
             BleManager.connect(peripheral.id)
-                .then(() => {
+                .then(async () => {
                     console.log('Connected');
                     BleManager.retrieveServices(peripheral.id)
-                        .then((peripheralInfo) => {
+                        .then(async (peripheralInfo) => {
                             console.log("periphal data011", peripheralInfo);
                             console.log("uuuid", peripheralInfo.advertising.serviceUUIDs[0])
 
                             var service = peripheralInfo.advertising.serviceUUIDs[0];
+                            var characteristic = '0000fff3-0000-1000-8000-00805f9b34fb';   //data is getting
+                            // var characteristic = 'cdeacb80-5235-4c07-8846-93a37ee6b86d';
+                            // peripheralInfo.characteristics.map((res) => {
+                            //     console.log(res)
+                            //     console.log("------------------------------", res.characteristic)
+                            //     characteristic = res.characteristic
+                            // })
+                            //  async readData(device) {
+
+                            // }
+
+
+                            // var chara = peripheralInfo.characteristics
+
                             //     console.log("servcicesssssss", service)
-                            var characteristic = 'cdeacb81-5235-4c07-8846-93a37ee6b86d';
+
 
 
 
@@ -384,128 +401,30 @@ export default function Test({ navigation }) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <LinearGradient
-                    start={{ x: 1.0, y: 0.25 }}
-                    end={{ x: 0.5, y: 2.0 }}
-                    locations={[0, 0.5, 0.6]}
-                    colors={["#ffcccc", "#ffcccc", "#ffcccc"]}
-                >
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            height: hp("7%"),
-                            borderRadius: 0,
-                            justifyContent: "flex-start",
-                        }}
-                    >
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <View style={{ marginTop: hp("2%") }}>
-                                <Image
-                                    source={require("../../assets/back.png")}
-                                    style={{
-                                        width: wp("7%"),
-                                        height: hp("3.5%"),
-                                        marginLeft: wp("5%"),
-                                    }}
-                                />
+            <View style={{ alignItems: 'center' }}>
+                <TouchableOpacity onPress={spodata}>
+                    <View style={{ marginTop: hp('2%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ justifyContent: 'center', }}>
+                                <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Thermometer</Text>
                             </View>
-                        </TouchableOpacity>
-                        <View
-                            style={{
-                                alignSelf: "center",
-                                marginLeft: wp("5%"),
-                                textShadowColor: "#fff",
-                                shadowColor: "#fff",
-                                shadowRadius: 0,
-                            }}
-                        >
-                            <Text style={{ color: "#000", fontSize: 15 }}>
-                                Test Process
-                            </Text>
+                            <View>
+                                <LottieView
+                                    style={{
+                                        width: width * 0.15,
+                                        height: Dimensions.get("window").width * 0.18,
+                                        justifyContent: 'center',
+                                    }}
+                                    source={require("../../assets/json/90289-thermometer.json")} loop={true} autoPlay={true}
+                                />
+
+
+                            </View>
                         </View>
                     </View>
-                </LinearGradient>
+
+                </TouchableOpacity>
             </View>
-            <View style={{ alignItems: 'center', marginTop: 10, width: '100%', backgroundColor: '#f2f2f2' }}>
-                <View style={{ flexDirection: 'row', width: '70%', justifyContent: 'space-around' }}>
-                    <Text style={styles.header}>patient Name:-</Text>
-                    <Text style={styles.data}>Mahesh</Text>
-                </View>
-                <View style={{ flexDirection: 'row', marginTop: 10, width: '70%', justifyContent: 'space-around' }}>
-                    <Text style={styles.header}>Test Profile:-</Text>
-                    <Text style={styles.data}>Sr.Doctor</Text>
-                </View>
-
-            </View>
-
-            <View style={{ alignItems: 'center' }}>
-
-                {spo ? (<>
-
-                    <TouchableOpacity onPress={spodata}>
-                        <View style={{ marginTop: hp('4%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ justifyContent: 'center', }}>
-                                    <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Oximeter</Text>
-                                </View>
-                                <View>
-                                    <LottieView
-                                        style={{
-                                            width: width * 0.15,
-                                            height: Dimensions.get("window").width * 0.18,
-                                            justifyContent: 'center',
-                                        }}
-                                        source={require("../../assets/lf30_editor_checklist.json")} loop={true} autoPlay={true}
-                                    />
-                                </View>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('1%') }}>
-                                <Text style={styles.header}>SPO2</Text>
-                                <Text style={styles.data}>{spo}%</Text>
-
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('1%'), marginBottom: 20 }}>
-                                <Text style={styles.header}>BP</Text>
-                                <Text style={styles.data}>{sdp}</Text>
-
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-
-
-
-                </>) : (<>
-                    <TouchableOpacity onPress={spodata}>
-                        <View style={{ marginTop: hp('5%'), backgroundColor: '#e6ecff', width: width * 0.9, borderRadius: 10 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ justifyContent: 'center', }}>
-                                    <Text style={{ color: '#000', fontSize: 20, marginLeft: 10 }}>Oximeter</Text>
-                                </View>
-                                <View>
-                                    <LottieView
-                                        style={{
-                                            width: width * 0.15,
-                                            height: Dimensions.get("window").width * 0.18,
-                                            justifyContent: 'center',
-                                        }}
-                                        source={require("../../assets/78930-pulse-oximeter-power-on.json")} loop={true} autoPlay={true}
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-
-
-                </>)}
-
-
-            </View>
-
-            <Test_thermometer />
-            <Test_bp />
-            <Test_weight />
-
             <View>
 
                 {/* //////////////////////////////////////////////////////////instructions */}
@@ -594,18 +513,10 @@ export default function Test({ navigation }) {
                     onRequestClose={() => { setBoxVisible1(false) }}
                     close={() => { setBoxVisible1(false) }}
 
-                // onBackdropPress={closeqr}
-                // onRequestClose={() => { console.log("Modal has been closed.") }}
-
 
                 >
                     <View style={styles.viewWrapper12}>
                         <View style={styles.modalView12}>
-                            {/* <View style={{ alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#000', marginBottom: hp('1%'), padding: 10 }}>
-
-                                <Text style={{ color: '#000', textAlign: 'center', justifyContent: 'center' }}>Covid 19 Ag  Test </Text>
-                      
-                            </View> */}
                             <View style={{ borderBottomWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: hp("1%") }}>
                                 <Text></Text>
                                 <Text style={{ color: '#000' }}>Searching... </Text>
@@ -632,29 +543,7 @@ export default function Test({ navigation }) {
                             </View>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('5%'), marginBottom: hp('5%') }}>
-                                {/* <View>
-                                    <TouchableOpacity>
-                                        <View style={styles.btn}>
-                                            <Text style={{ color: '#fff' }}>
-                                                Cancel
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                                <View>
-                                    <TouchableOpacity>
-                                        <View style={styles.btn1}>
-                                            <Text style={{ color: '#fff' }}>
-                                                Save
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                </View> */}
                             </View>
-
-
-
                         </View>
                     </View>
                 </Modal>
@@ -665,17 +554,17 @@ export default function Test({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: '#fff'
     },
     viewWrapper12: {
-        flex: 1,
+
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgba(0, 0, 0, 0.2)",
     },
     modalView12: {
-        flex: 0,
+
         position: "absolute",
         top: hp("40%"),
         left: wp("50%"),
@@ -739,8 +628,8 @@ const styles = StyleSheet.create({
 
     },
     data: {
-        fontSize: 17,
-        fontWeight: '900',
+        fontSize: 15,
+        fontWeight: '400',
         color: '#000'
 
 
